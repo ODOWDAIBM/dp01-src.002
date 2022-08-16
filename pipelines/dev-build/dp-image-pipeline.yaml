@@ -13,6 +13,7 @@ spec:
     type: string
   workspaces:
   - name: shared-data
+  - name: shared-data-1
   tasks:
   - name: fetch-source
     taskRef:
@@ -23,8 +24,20 @@ spec:
     params:
     - name: url
       value: $(params.repo-url)
-  - name: build-push
+  - name: fetch-source-1
     runAfter: ["fetch-source"]
+    taskRef:
+      name: git-clone
+    workspaces:
+    - name: output
+      workspace: shared-data-1
+    params:
+    - name: url
+      value: $(params.repo-url)
+    - name: revision
+      value: "pipelines"
+  - name: build-push
+    runAfter: ["fetch-source-1"]
     taskRef:
       name: kaniko
     workspaces:
@@ -33,3 +46,12 @@ spec:
     params:
     - name: IMAGE
       value: $(params.image-reference)
+  - name: run-dp-task1
+    runAfter: ["build-push"]
+    taskRef:
+      name: dp-task01
+    workspaces:
+    - name: source
+      workspace: shared-data
+    - name: source-1
+      workspace: shared-data-1
