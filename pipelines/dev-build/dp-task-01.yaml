@@ -11,5 +11,4 @@ spec:
       image: alpine
       script: |
         #!/bin/sh
-        ls -alt $(workspaces.output.path)/repo/pipelines/pipelines
-        .$(workspaces.output.path)/repo/pipelines/pipelines/scripts/dp-task-01.sh
+        $(workspaces.output.path)/repo/pipelines/pipelines/scripts/dp-task-01.sh
