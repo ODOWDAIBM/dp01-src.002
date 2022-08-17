@@ -56,5 +56,5 @@ spec:
     taskRef:
       name: dp-task-01
     workspaces:
-    - name: source
+    - name: output
       workspace: shared-data

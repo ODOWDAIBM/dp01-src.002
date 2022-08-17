@@ -4,11 +4,12 @@ metadata:
   name: dp-task-01
 spec:
   workspaces:
-    - name: source
+    - name: output
       description: Holds Datapower source
   steps:
     - name: echo
       image: alpine
       script: |
         #!/bin/sh
-        $(workspaces.source.path)/repo/pipelines/pipelines/scripts/dp-task-01.sh
+        ls -alt $(workspaces.output.path)/repo/pipelines/pipelines
+        .$(workspaces.output.path)/repo/pipelines/pipelines/scripts/dp-task-01.sh
